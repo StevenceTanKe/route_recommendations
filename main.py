@@ -8,7 +8,7 @@ import json
 def setup():
     st.set_page_config(
         page_title='澳门旅游路线推荐系统',
-        page_icon='../data/map/icon/macau.ico',
+        page_icon='data/map/icon/macau.ico',
         layout='wide'
     )
 
@@ -100,7 +100,7 @@ def display_recommendations(tour_type, day_tour_hours, multi_day_spots, selected
 
 
 def one_day_tour(day_tour_hours, selected_tags):
-    df_attraction = pd.read_excel('../data/processed/attractions_information.xlsx')
+    df_attraction = pd.read_excel('data/processed/attractions_information.xlsx')
 
     # 根据 selected_tags 和 weights 得到排序
     speed = 5
@@ -197,7 +197,7 @@ def one_day_tour(day_tour_hours, selected_tags):
 
             json_data = json.dumps(data_list, ensure_ascii=False)
 
-            with open('../data/map/js/route_oneday_tour.js', 'w', encoding='utf-8') as f:
+            with open('data/map/js/route_oneday_tour.js', 'w', encoding='utf-8') as f:
                 f.write(f"var onedayData = {json_data}")
 
             # 调用'route_oneday_tour.html'画图
@@ -271,7 +271,7 @@ def one_day_tour(day_tour_hours, selected_tags):
 
     json_data = json.dumps(data_list, ensure_ascii=False)
 
-    with open('../data/map/js/route_oneday_tour.js', 'w', encoding='utf-8') as f:
+    with open('data/map/js/route_oneday_tour.js', 'w', encoding='utf-8') as f:
         f.write(f"var multidayData = {json_data}")
 
     # 调用'route_oneday_tour.html'画图
@@ -279,7 +279,7 @@ def one_day_tour(day_tour_hours, selected_tags):
 
 
 def multi_day_tour(multi_day_spots, selected_tags):
-    df_attraction = pd.read_excel('../data/processed/attractions_information.xlsx')
+    df_attraction = pd.read_excel('data/processed/attractions_information.xlsx')
 
     # 根据 selected_tags 和 weights 得到排序
     label_weights = {}
@@ -369,7 +369,7 @@ def multi_day_tour(multi_day_spots, selected_tags):
 
     json_data = json.dumps(data_list, ensure_ascii=False)
 
-    with open('../data/map/js/route_multiday_tour.js', 'w', encoding='utf-8') as f:
+    with open('data/map/js/route_multiday_tour.js', 'w', encoding='utf-8') as f:
         f.write(f"var multidayData = {json_data}")
 
     # 调用'route_multiday_tour.html'画图
