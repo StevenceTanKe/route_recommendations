@@ -1,1 +1,1 @@
-var multidayData = [{"lng": 113.535783, "lat": 22.183039, "Attraction": "海事博物馆"}, {"lng": 113.549754, "lat": 22.189498, "Attraction": "加思栏花园"}, {"lng": 113.55685, "lat": 22.196402, "Attraction": "二龙喉公园"}, {"lng": 113.553047, "lat": 22.19751, "Attraction": "卢廉若公园"}, {"lng": 113.547292, "lat": 22.194192, "Attraction": "澳门博物馆"}, {"lng": 113.544696, "lat": 22.197757, "Attraction": "白鸽巢公园"}]
+var onedayData = [{"lng": 113.544696, "lat": 22.197757, "Attraction": "白鸽巢公园"}]
