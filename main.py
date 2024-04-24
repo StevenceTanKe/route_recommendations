@@ -113,7 +113,7 @@ def one_day_tour(day_tour_hours, selected_tags):
     df_attraction['Weighted_Score'] = 0
     for label, weight in label_weights.items():
         df_attraction['Weighted_Score'] += df_attraction.get(label, 0) * weight
-    df_recommendation = df_attraction.sort_values(by='Weighted_Score', ascending=False).head(day_tour_hours+1)
+    df_recommendation = df_attraction.sort_values(by='Weighted_Score', ascending=False).head(day_tour_hours + 1)
 
     print(df_recommendation[['Attraction', 'Weighted_Score']].to_string(index=False))
     print(f"\n Stay duration: {df_recommendation['tour_duration'].sum()} h")
@@ -201,7 +201,9 @@ def one_day_tour(day_tour_hours, selected_tags):
                 f.write(f"var onedayData = {json_data}")
 
             # 调用'route_oneday_tour.html'画图
-            st.components.v1.iframe("https://stevencetanke.github.io/map/html/route_oneday_tour.html", height=600)
+            st.components.v1.iframe(
+                "https://stevencetanke.github.io/route_recommendations/data/map/html/route_oneday_tour.html",
+                height=600)
 
             return
 
@@ -275,7 +277,8 @@ def one_day_tour(day_tour_hours, selected_tags):
         f.write(f"var multidayData = {json_data}")
 
     # 调用'route_oneday_tour.html'画图
-    st.components.v1.iframe("https://stevencetanke.github.io/map/html/route_oneday_tour.html", height=600)
+    st.components.v1.iframe(
+        "https://stevencetanke.github.io/route_recommendations/data/map/html/route_oneday_tour.html", height=600)
 
 
 def multi_day_tour(multi_day_spots, selected_tags):
@@ -373,7 +376,8 @@ def multi_day_tour(multi_day_spots, selected_tags):
         f.write(f"var multidayData = {json_data}")
 
     # 调用'route_multiday_tour.html'画图
-    st.components.v1.iframe("https://stevencetanke.github.io/map/html/route_multiday_tour.html", height=600)
+    st.components.v1.iframe(
+        "https://stevencetanke.github.io/route_recommendations/data/map/html/route_multiday_tour.html", height=600)
 
 
 # 计算地球上两点间的距离
