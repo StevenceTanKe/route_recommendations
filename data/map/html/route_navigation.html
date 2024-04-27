@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <style>
+        html,
+        body,
+        #container {
+            width: 100%;
+            height: 100%;
+        }
+
+        #panel {
+            position: fixed;
+            background-color: white;
+            max-height: 90%;
+            overflow-y: auto;
+            top: 10px;
+            right: 10px;
+            width: 280px;
+        }
+
+        #panel .amap-call {
+            background-color: #009cf9;
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+        }
+
+        #panel .amap-lib-walking {
+            border-bottom-left-radius: 4px;
+            border-bottom-right-radius: 4px;
+            overflow: hidden;
+        }
+    </style>
+    <title>Route navigation</title>
+    <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css"/>
+    <script type="text/javascript">
+        window._AMapSecurityConfig = {
+            securityJsCode: "ebf3315c39b1cafb43061814dcac562b",
+        };
+    </script>
+    <script src="https://webapi.amap.com/maps?v=1.4.15&key=a60ac91b603fc07bdbf35c6ba651a022&plugin=AMap.Walking"></script>
+    <script src="https://a.amap.com/jsapi_demos/static/demo-center/js/demoutils.js"></script>
+</head>
+<body>
+<div id="container"></div>
+<div id="panel"></div>
+<script type="text/javascript">
+    var map = new AMap.Map("container", {
+        center: [113.548359, 22.189997],
+        zoom: 15
+    });
+
+    var walkOption = {
+        map: map,
+        panel: "panel",
+        hideMarkers: false,
+        isOutline: true,
+        outlineColor: '#ffeeee',
+        autoFitView: true
+    }
+
+    // 步行导航
+    var walking = new AMap.Walking(walkOption)
+
+    //根据起终点坐标规划步行路线
+    walking.search([navigData[0].lng, navigData[0].lat], [navigData[1].lng, navigData[1].lat], function(status, result) {
+        if (status === 'complete') {
+            log.success('步行路线数据查询成功')
+        } else {
+            log.error('步行路线数据查询失败' + result)
+        }
+    });
+</script>
+</body>
+</html>

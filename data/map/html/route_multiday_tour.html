@@ -23,7 +23,6 @@
 <body>
 <div id="container"></div>
 <script src="//webapi.amap.com/maps?v=1.4.15&key=4ac30f2d0e3b3f9f5b3d8b2fee881d87&plugin=Map3D"></script>
-<script type="text/javascript" src="../js/route_multiday_tour.js"></script>
 <script>
     var points = []; // Used to store map points
     var names = [];  // Used to store location names
@@ -61,17 +60,11 @@
 
     //Create different markers based on the position of the point
     points.forEach(function (point, index) {
-        let iconUrl = '//a.amap.com/jsapi_demos/static/demo-center/icons/dir-via-marker.png';
-        let imageOffset = new AMap.Pixel(-13, -30);
+        let iconUrl = '//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png';
 
-        if (index === 0 || index === points.length - 1) {
-            if (index === 0) { // starting point
-                iconUrl = '//a.amap.com/jsapi_demos/static/demo-center/icons/dir-marker.png';
-                imageOffset = new AMap.Pixel(-9, -3);
-            } else if (index === points.length - 1) { //end point
-                iconUrl = '//a.amap.com/jsapi_demos/static/demo-center/icons/dir-marker.png';
-                imageOffset = new AMap.Pixel(-95, -3);
-            }
+        if (index === 0) {
+            iconUrl = '//a.amap.com/jsapi_demos/static/demo-center/icons/dir-marker.png';
+            imageOffset = new AMap.Pixel(-9, -3);
             var markerContent = ''
             var marker = new AMap.Marker({
                 position: point,
@@ -84,7 +77,7 @@
                 content: markerContent,
                 offset: new AMap.Pixel(-13, -30)
             });
-        } else {
+        } else if (index !== points.length - 1) {
             var marker = new AMap.Marker({
                 position: point,
                 icon: iconUrl,
@@ -95,7 +88,8 @@
         marker.setTitle(names[index]);
 
         map.add(marker);
-    });
+    })
+    ;
 </script>
 </body>
 </html>
