@@ -34,7 +34,7 @@ def setup():
 
     if 'multiday_tour' not in st.session_state:
         st.session_state['multiday_tour'] = {}
-        st.session_state['multiday_tour']['multi_day'] = 1
+        st.session_state['multiday_tour']['multi_day'] = 2
         st.session_state['multiday_tour']['weights'] = {}
         st.session_state['multiday_tour']['df_weigh'] = None
         st.session_state['multiday_tour']['selected_tags'] = []
@@ -70,10 +70,10 @@ def setup():
     elif st.session_state['tour_type'] == '多日游':
         multi_day = st.sidebar.number_input(
             '请输入期望游览的景点数量',
-            min_value=1,
+            min_value=2,
             max_value=49,
-            help='景点数量范围：1~49',
-            value=st.session_state['multiday_tour'].get('multi_day', 1),
+            help='景点数量范围：2~49',
+            value=st.session_state['multiday_tour'].get('multi_day', 2),
             key='multi_day')
 
         selected_tags = st.sidebar.multiselect('请选择你感兴趣的标签：', options=['Square', 'Park', 'Street',
@@ -282,11 +282,11 @@ def one_day_tour():
             for j, (idx2, row2) in enumerate(df_coords.iterrows()):
                 distance_matrix[i, j] = haversine(row1['lat'], row1['lng'], row2['lat'], row2['lng'])
 
-        # 适应度函数定义
+        # Define the fitness function
         def fitness(individual):
             return (sum(distance_matrix[individual[i], individual[i + 1]] for i in range(len(individual) - 1)),)
 
-        # 遗传算法设置
+        # Set up the genetic algorithm
         creator.create("FitnessMin", base.Fitness, weights=(-1.0,))
         creator.create("Individual", list, fitness=creator.FitnessMin)
 
@@ -300,21 +300,22 @@ def one_day_tour():
         toolbox.register("select", tools.selTournament, tournsize=3)
         toolbox.register("evaluate", fitness)
 
-        # 初始化种群
+        # Initialize the population
         population = toolbox.population(n=300)
 
-        # 算法参数
+        # Set up the algorithm parameters
         ngen = 400
         cxpb = 0.7
         mutpb = 0.2
 
-        # 运行遗传算法
+        # Run the genetic algorithm
         best_individuals = algorithms.eaSimple(population, toolbox, cxpb, mutpb, ngen, verbose=True)
 
-        # 找到最优解
-        best_individual = tools.selBest(best_individuals[0], k=1)[0]  # 注意这里使用best_individuals[0]获取最终种群
+        # Find the optimal solution
+        best_individual = tools.selBest(best_individuals[0], k=1)[
+            0]  # Note that best_individuals[0] is used here to obtain the final population
         optimal_path = best_individual
-        optimal_distance = best_individual.fitness.values[0]  # 使用fitness.values来访问适应度值
+        optimal_distance = best_individual.fitness.values[0]  # Use fitness.values to access fitness values
 
         # 打印结果
         attraction_names = df_coords['Attraction'].tolist()
